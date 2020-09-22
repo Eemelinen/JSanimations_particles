@@ -42,10 +42,8 @@ class Particle {
     if (this.y > canvas.height || this.y < 0) {
       this.directionY = - this.directionY
     }
-
     /**
     * ! Collision detection */
-
     let dx = mouse.x - this.x;
     let dy = mouse.y - this.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
@@ -69,5 +67,33 @@ class Particle {
     this.y += this.directionY;
     this.draw();
   }
-
 }
+
+function init() {
+  particleArray = [];
+  let particleAmount = (canvas.height * canvas.width) / 9000;
+  for (let i = 0; i < particleAmount; i++) {
+    let size = (Math.random() * 5) + 1 ;
+    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+    let directionX = (Math.random() * 5) - 2.5;
+    let directionY = (Math.random() * 5) - 2.5;
+    let color = 'red';
+    particleArray.push(new Particle(x, y, directionX, directionY, size, color));
+  }
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  for (let i = 0; i < particleArray.length; i++) {
+    particleArray[i].update();
+  }
+}
+
+// const part = new Particle(1, 1, 1, 1, 10, 'red');
+// part.draw();
+
+init();
+animate();
+
