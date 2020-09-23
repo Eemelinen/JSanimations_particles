@@ -8,7 +8,7 @@ let particleArray = [];
 let mouse = {
   x: null,
   y: null,
-  radius: (canvas.height / 80) * (canvas.width / 80),
+  radius: (canvas.height / 130) * (canvas.width / 130),
 };
 
 window.addEventListener('mousemove',
@@ -37,10 +37,10 @@ class Particle {
 
   update() {
     if (this.x > canvas.width || this.x < 0) {
-      this.directionX = - this.directionX
+      this.directionX = -this.directionX
     }
     if (this.y > canvas.height || this.y < 0) {
-      this.directionY = - this.directionY
+      this.directionY = -this.directionY
     }
     /**
     * ! Collision detection */
@@ -48,18 +48,22 @@ class Particle {
     let dy = mouse.y - this.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < mouse.radius  + this.size) {
-      if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-        this.x += 10;
+    if (distance < mouse.radius + this.size) {
+      if (mouse.x < this.x && this.x < canvas.width - this.size * 15) {
+        this.directionX = -this.directionX;
+        this.x += 3;
       };
-      if (mouse.x > this.x && this.x > this.size * 10) {
-        this.x -= 10;
+      if (mouse.x > this.x && this.x > this.size * 15) {
+        this.directionX = -this.directionX;
+        this.x -= 3;
       };
-      if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
-        this.y += 10;
+      if (mouse.y < this.y && this.y < canvas.height - this.size * 15) {
+        this.directionY = -this.directionY;
+        this.y += 3;
       };
-      if (mouse.y < this.y && this.y > this.size * 10) {
-        this.y -= 10;
+      if (mouse.y > this.y && this.y > this.size * 15) {
+        this.directionY = -this.directionY;
+        this.y -= 3;
       };
     };
 
@@ -71,14 +75,14 @@ class Particle {
 
 function init() {
   particleArray = [];
-  let particleAmount = (canvas.height * canvas.width) / 9000;
+  let particleAmount = (canvas.height * canvas.width) / 7000;
   for (let i = 0; i < particleAmount; i++) {
     let size = (Math.random() * 5) + 1 ;
     let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
     let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
     let directionX = (Math.random() * 5) - 2.5;
     let directionY = (Math.random() * 5) - 2.5;
-    let color = 'red';
+    let color = '#8C5523';
     particleArray.push(new Particle(x, y, directionX, directionY, size, color));
   }
 }
