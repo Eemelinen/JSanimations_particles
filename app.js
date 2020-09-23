@@ -83,6 +83,8 @@ function init() {
   }
 }
 
+/**
+* ! Line drawing between dots */
 function connect() {
   for (let a = 0; a < particleArray.length; a++) {
     for (let b = a; b < particleArray.length; b++) {
@@ -113,6 +115,22 @@ function animate() {
   }
   connect();
 }
+
+window.addEventListener('resize',
+  function() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    mouse.radius = ((canvas.height / 80) * (canvas.height / 80));
+    init();
+  }
+);
+
+window.addEventListener('mouseout',
+  function() {
+    mouse.x = null;
+    mouse.y = null;
+  }
+);
 
 init();
 animate();
