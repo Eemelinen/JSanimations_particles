@@ -86,17 +86,19 @@ function init() {
 /**
 * ! Line drawing between dots */
 function connect() {
+  let opacityVal = 0;
   for (let a = 0; a < particleArray.length; a++) {
     for (let b = a; b < particleArray.length; b++) {
 
-      let distance =  (( particleArray[a].x - particleArray[b].x )
+      let distance =  ((   particleArray[a].x - particleArray[b].x )
                         * (particleArray[a].x - particleArray[b].x))
                         + ((particleArray[a].y - particleArray[b].y)
                         * (particleArray[a].y - particleArray[b].y
                       ));
 
       if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-        ctx.strokeStyle = 'rgba(140, 85, 31, 1)';
+        opacityVal = 1 - (distance / 20000);
+        ctx.strokeStyle = `rgba(140, 85, 31, ${opacityVal})`;
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(particleArray[a].x, particleArray[a].y);
