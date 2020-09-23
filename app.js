@@ -83,16 +83,36 @@ function init() {
   }
 }
 
+function connect() {
+  for (let a = 0; a < particleArray.length; a++) {
+    for (let b = a; b < particleArray.length; b++) {
+
+      let distance =  (( particleArray[a].x - particleArray[b].x )
+                        * (particleArray[a].x - particleArray[b].x))
+                        + ((particleArray[a].y - particleArray[b].y)
+                        * (particleArray[a].y - particleArray[b].y
+                      ));
+
+      if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+        ctx.strokeStyle = 'rgba(140, 85, 31, 1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particleArray[a].x, particleArray[a].y);
+        ctx.lineTo(particleArray[b].x, particleArray[b].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
 function animate() {
   requestAnimationFrame(animate);
   ctx.clearRect(0, 0, innerWidth, innerHeight);
   for (let i = 0; i < particleArray.length; i++) {
     particleArray[i].update();
   }
+  connect();
 }
-
-// const part = new Particle(1, 1, 1, 1, 10, 'red');
-// part.draw();
 
 init();
 animate();
