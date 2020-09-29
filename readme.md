@@ -1,3 +1,3 @@
-## Particles animation with mouse tracking
+# Particles animation with mouse tracking
 
 # Javascript, html, css
